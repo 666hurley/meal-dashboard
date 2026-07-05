@@ -541,6 +541,7 @@ let week = +(store.getItem("mp_week") || 0);
 if (!(week >= 0 && week <= 3)) week = 0;
 let view = store.getItem("mp_view") || "meals";
 let checks = readJSON("mp_checks");
+let checkTimes = readJSON("mp_times");
 let closed = readJSON("mp_closed");
 let openMeals = readJSON("mp_open");
 let hideDone = store.getItem("mp_hide") === "1";
@@ -562,6 +563,7 @@ function toggleTheme(){
 
 function save(){
   store.setItem("mp_checks", JSON.stringify(checks));
+  store.setItem("mp_times", JSON.stringify(checkTimes));
   store.setItem("mp_closed", JSON.stringify(closed));
   store.setItem("mp_open", JSON.stringify(openMeals));
   store.setItem("mp_week", week);
@@ -588,7 +590,7 @@ function renderHero(){
   $("#heroStats").innerHTML = `
     <div class="sumline">
       <span><b>Week ${week+1}</b> · ${money(s.total)} planned</span>
-      <span class="cart">${s.nDone}/${s.n} · ${money(s.done)} in cart</span>
+      <span class="cart">${s.nDone}/${s.n} · ${money(s.done)} in cart <span id="syncdot" style="color:var(--faint); font-weight:400;">${syncLabel()}</span></span>
     </div>
     <div class="sumtrack" role="progressbar" aria-label="Shopping progress" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>`;
 }
@@ -697,12 +699,82 @@ function render(){
 }
 
 function toggleMeal(k){ openMeals[k]=!openMeals[k]; save(); render(); }
-function toggleItem(k){ checks[k]=!checks[k]; save(); render(); }
+function toggleItem(k){ checks[k]=!checks[k]; checkTimes[k]=Date.now(); save(); render(); pushSoon(); }
 function toggleStore(k){ closed[k]=!closed[k]; save(); render(); }
 function toggleHide(){ hideDone=!hideDone; save(); render(); }
 function resetWeek(){
-  Object.keys(checks).forEach(k=>{ if(k.startsWith("w"+week+"t")) delete checks[k]; });
-  save(); render();
+  const t = Date.now();
+  Object.keys(checks).forEach(k=>{ if(k.startsWith("w"+week+"t") && checks[k]){ checks[k]=false; checkTimes[k]=t; } });
+  save(); render(); pushSoon();
+}
+
+/* ---- household sync (textdb.online: CORS-safe simple requests, no accounts) ----
+   Shared state is only the checkmarks, merged per-item by newest timestamp.
+   Week/view/theme stay personal per device. Fails soft to local-only. */
+const SYNC_KEY = "mealdash-666hurley-vq83nt2j";
+const SYNC_READ = "https://textdb.online/" + SYNC_KEY;
+const SYNC_WRITE = "https://textdb.online/update/?key=" + SYNC_KEY;
+const canSync = typeof window !== "undefined" && typeof window.fetch === "function";
+let syncState = "…";
+let pushTimer = null;
+
+function syncLabel(){
+  return syncState==="synced" ? "✓ synced" : (syncState==="offline" ? "sync off" : "…");
+}
+function setSync(s){
+  if(syncState===s) return;
+  syncState = s;
+  const el = document.getElementById("syncdot");
+  if(el) el.textContent = syncLabel();
+}
+function syncPayload(){
+  const m = {};
+  Object.keys(checkTimes).forEach(k=>{ m[k] = [!!checks[k], checkTimes[k]]; });
+  return JSON.stringify({checks:m});
+}
+function pushSoon(){
+  if(!canSync) return;
+  clearTimeout(pushTimer);
+  pushTimer = setTimeout(pushNow, 700);
+}
+async function pushNow(){
+  if(!canSync) return;
+  try{
+    const body = new URLSearchParams(); body.set("value", syncPayload());
+    const r = await fetch(SYNC_WRITE, {method:"POST", body});
+    setSync(r.ok ? "synced" : "offline");
+  }catch(e){ setSync("offline"); }
+}
+async function pull(){
+  if(!canSync) return;
+  try{
+    const r = await fetch(SYNC_READ + "?t=" + Date.now(), {cache:"no-store"});
+    if(!r.ok) throw 0;
+    const txt = (await r.text()).trim();
+    let changed = false, localNewer = false;
+    if(txt){
+      let remote = null;
+      try{ remote = (JSON.parse(txt)||{}).checks || {}; }catch(e){ remote = null; }
+      if(remote === null){ localNewer = true; } // garbage in the bin — overwrite with ours
+      else{
+        Object.keys(remote).forEach(k=>{
+          const e = remote[k]; if(!Array.isArray(e)) return;
+          const v = !!e[0], t = +e[1]||0;
+          if((checkTimes[k]||0) < t){ checks[k]=v; checkTimes[k]=t; changed = true; }
+          else if((checkTimes[k]||0) > t){ localNewer = true; }
+        });
+        Object.keys(checkTimes).forEach(k=>{ if(!(k in remote)) localNewer = true; });
+      }
+    } else if(Object.keys(checkTimes).length){ localNewer = true; }
+    if(changed){ save(); render(); }
+    setSync("synced");
+    if(localNewer) pushSoon();
+  }catch(e){ setSync("offline"); }
+}
+if(canSync){
+  pull();
+  setInterval(()=>{ if(!document.hidden) pull(); }, 8000);
+  document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) pull(); });
 }
 document.addEventListener("keydown", e=>{
   if((e.key==="Enter"||e.key===" ") && e.target.matches && e.target.matches('[role="checkbox"],[role="button"]')){

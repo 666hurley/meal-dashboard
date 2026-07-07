@@ -168,6 +168,12 @@
     display:inline-block; font-size:.62rem; font-weight:600;
     border:1px solid var(--line); border-radius:5px; padding:1px 6px; margin-top:5px; color:var(--faint);
   }
+  .oosbadge{
+    display:inline-block; font-size:.6rem; font-weight:700; letter-spacing:.02em;
+    color:#f28b8b; border:1px solid #5a2c2c; background:#2a1414;
+    border-radius:5px; padding:1px 6px; margin-left:6px; vertical-align:1px;
+  }
+  [data-theme="light"] .oosbadge{color:#b3261e; border-color:#e6b0ac; background:#fdeceb;}
   .progress{height:4px; background:var(--card2); border-radius:2px; margin:2px 14px 0; overflow:hidden;}
   .progress i{display:block; height:100%; background:var(--accent); width:0%; transition:width .2s ease-out;}
   .store-foot{padding:6px 14px 10px;}
@@ -709,7 +715,7 @@ function render(){
               return `<div class="item ${checks[k]?'done':''}" role="checkbox" tabindex="0" aria-checked="${!!checks[k]}" onclick="toggleItem('${k}')">
                 <div class="box">✓</div>
                 <div class="mid">
-                  <div class="iname">${it.n}</div>
+                  <div class="iname">${it.n}${it.oos?'<span class="oosbadge">out of stock</span>':''}</div>
                   ${it.sub?`<div class="isub">${it.sub}</div>`:""}
                   ${cat?`<span class="tag">${cat}</span>`:""}
                 </div>

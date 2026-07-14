@@ -12,7 +12,7 @@
     --bg:#0d0f14; --card:#151a23; --card2:#1c2230; --line:#262d3b;
     --text:#eef1f6; --dim:#aab3c2; --faint:#8b94a5;
     --accent:#31c98a; --on-accent:#07281b;
-    --sprouts:#7bc95c; --target:#f26d6d; --vons:#e9bd5d;
+    --sprouts:#7bc95c; --target:#f26d6d; --vons:#e9bd5d; --snf:#f0873e;
     --tip-bg:#221d0e; --tip-line:#3d3417; --tip-text:#d9c07a;
     --press:#ffffff0a;
   }
@@ -22,7 +22,7 @@
     --bg:#f4f5f7; --card:#ffffff; --card2:#edeff3; --line:#dfe3ea;
     --text:#141a24; --dim:#3e4a5d; --faint:#5c6678;
     --accent:#0b8f60; --on-accent:#ffffff;
-    --sprouts:#3f8a25; --target:#c93b3b; --vons:#9a7418;
+    --sprouts:#3f8a25; --target:#c93b3b; --vons:#9a7418; --snf:#c25a14;
     --tip-bg:#faf4de; --tip-line:#e7dcae; --tip-text:#6a5a14;
     --press:#00000008;
   }
@@ -216,6 +216,7 @@
     <span><i style="background:var(--sprouts)"></i><b>Sprouts</b>&nbsp;8142</span>
     <span><i style="background:var(--target)"></i><b>Target</b>&nbsp;8251</span>
     <span><i style="background:var(--vons)"></i><b>Vons</b>&nbsp;8310</span>
+    <span><i style="background:var(--snf)"></i><b>S&amp;F</b>&nbsp;delivery</span>
   </div>
   <div class="summary" id="heroStats"></div>
   <div class="legend"><b>✓ verified online (Jul 2026)</b> · ~ estimate · tap meals for a game plan · tap items to check off</div>
@@ -237,7 +238,7 @@
 
   <footer>
     Prices verified at the Mira Mesa Sprouts, Target, Vons &amp; Smart &amp; Final; sale prices change weekly.<br>
-    <b>Build: Jul 9, 2026 — Smart &amp; Final edition.</b> If you don't see this line, your phone has an old cached copy — close the app fully and reopen.
+    <b>Build: Jul 9, 2026 (v2) — Smart &amp; Final in the Shop tab.</b> If you don't see this line, your phone has an old cached copy — close the app fully and reopen.
   </footer>
 </div>
 
@@ -246,6 +247,7 @@ const STORES = {
   S:{name:"Sprouts", color:"var(--sprouts)"},
   T:{name:"Target", color:"var(--target)"},
   V:{name:"Vons", color:"var(--vons)"},
+  F:{name:"Smart & Final", color:"var(--snf)"},
 };
 const CATS = {pr:"Produce", fz:"Frozen", dy:"Dairy", pa:"Pantry", bk:"Bakery"};
 
@@ -283,7 +285,6 @@ const DATA = [
       {st:"S", n:"Russet potatoes (5 lb bag)", sub:"Fri steak night", p:3.99, v:1, c:"pr"},
       {st:"S", n:"Apples (4)", sub:"snacks · gala/fuji $1.99/lb", p:3.30, v:1, c:"pr"},
       {st:"S", n:"Bartlett pears (4)", sub:"snacks · $1.99/lb", p:3.20, v:1, c:"pr"},
-      {st:"S", n:"Strawberries 1 lb", sub:"on sale $3.33 (reg $4) · S&F: $2.99 every day", p:3.33, v:1, c:"pr"},
       {st:"T", n:"Vegetable broth 32oz — Good & Gather", sub:"broccoli soup", p:1.49, c:"pa"},
       {st:"T", n:"Bread — Market Pantry honey wheat", sub:"grilled cheese", p:1.89, v:1, c:"pa"},
       {st:"T", n:"Tillamook cheddar slices 8oz", sub:"grilled cheese — your cheddar", p:4.19, v:1, c:"dy"},
@@ -291,11 +292,9 @@ const DATA = [
       {st:"T", n:"Jumbo shells 12oz — Good & Gather", sub:"stuffed shells", p:1.99, v:1, c:"pa"},
       {st:"T", n:"Ricotta 15oz — Galbani whole milk", sub:"stuffed shells", p:3.89, v:1, c:"dy"},
       {st:"T", n:"Shredded mozzarella 16oz — G&G", sub:"shells + extra", p:3.49, v:1, c:"dy"},
-      {st:"T", n:"Eggs dozen — Good & Gather", sub:"$1.49 vs $4.99 at Vons! · S&F delivery: cage-free 99¢", p:1.49, v:1, c:"dy"},
       {st:"T", n:"Marinara 24oz — G&G", sub:"stuffed shells", p:1.79, v:1, c:"pa"},
       {st:"T", n:"MorningStar Chik'n Patties 4ct", sub:"Wed dinner · or grab Gardein Ult. Spicy Filets at Vons instead", p:4.99, v:1, c:"fz"},
       {st:"T", n:"Burger buns — Market Pantry 8ct", sub:"for patties", p:1.99, c:"bk"},
-      {st:"T", n:"Ore-Ida fries 32oz", sub:"2/$8 deal · or Market Pantry $3.29", p:4.39, v:1, c:"fz"},
       {st:"T", n:"Coffee (your usual)", sub:"", p:9.99, c:"pa"},
       {st:"T", n:"Coffee mate creamer 32oz", sub:"", p:3.99, v:1, c:"dy"},
       {st:"V", n:"French bread w/ real garlic butter — bakery", sub:"Tue with shells · verified (Signature Select frozen $3.49 backup)", p:3.99, v:1, c:"bk"},
@@ -311,18 +310,25 @@ const DATA = [
       {st:"T", n:"Beyond Steak 10oz", sub:"Fri · $4.55 SALE (reg $6.69 · Vons $9.99)", p:4.55, v:1, c:"fz"},
       {st:"T", n:"Tillamook sharp white cheddar shredded 8oz", sub:"Fri steak night — already grated", p:4.19, v:1, c:"dy"},
       {st:"T", n:"Frozen cheese pizza — Red Baron 4-cheese", sub:"Sat · or G&G margherita $6.99", p:4.99, v:1, c:"fz"},
-      {st:"T", n:"Burrito tortillas — Guerrero", sub:"Sun · S&F verified: Sonora 8ct $4.39 / Grande $4.79 (Target doesn't stock burrito size)", p:4.39, v:1, c:"pa"},
       {st:"T", n:"Refried beans 16oz — G&G (vegetarian)", sub:"Sun burritos · 99¢!", p:0.99, v:1, c:"pa"},
     ]},
     {t:"🧂 Pantry Kit — one-time stock-up (skip what you have)", items:[
       {st:"T", n:"Butter — G&G salted 4 sticks", sub:"grilled cheese, garlic butter, gravy, slider tops", p:3.19, v:1, c:"dy"},
-      {st:"T", n:"Canola oil — G&G 48oz", sub:"stainless searing needs it every time · S&F: First Street 48oz $3.99", p:4.99, c:"pa"},
       {st:"T", n:"Canola cooking spray — G&G", sub:"air-fryer breaded items crisp like deep-fried with a spritz", p:2.69, c:"pa"},
       {st:"T", n:"Mayo — Market Pantry 30oz", sub:"sandwiches + sriracha-mayo", p:3.99, v:1, c:"pa"},
       {st:"T", n:"Ketchup — G&G Simple Blend", sub:"", p:2.49, v:1, c:"pa"},
       {st:"T", n:"Ranch — Hidden Valley 16oz", sub:"nuggets, buffalo sandwiches", p:4.39, v:1, c:"pa"},
       {st:"T", n:"Sriracha — Huy Fong 17oz", sub:"spicy mayo + Korean night", p:4.99, v:1, c:"pa"},
       {st:"T", n:"Flour — G&G all-purpose", sub:"W2 pie gravy + W3 mozz sticks (audit fix — was bought too late)", p:2.99, c:"pa"},
+    ]},
+    {t:"🚚 Smart & Final Delivery — once a month, $35 min (grab the free-delivery code from their homepage)", items:[
+      {st:"F", n:"Cage-free eggs (2 dozen)", sub:"99¢ each with a $25+ order — covers soup, shells, and breading all month", p:1.98, v:1, c:"dy"},
+      {st:"F", n:"First Street crinkle fries 5-lb (×2)", sub:"$1/lb — covers every fry night this month", p:9.98, v:1, c:"fz"},
+      {st:"F", n:"Mahatma jasmine rice 5-lb", sub:"Korean night + burrito bowls", p:5.59, v:1, c:"pa"},
+      {st:"F", n:"First Street canola oil 48oz", sub:"the stainless-searing supply", p:3.99, v:1, c:"pa"},
+      {st:"F", n:"Hass avocados (4)", sub:"50¢ each — nachos + bowls", p:2.00, v:1, c:"pr"},
+      {st:"F", n:"Strawberries 2-lb", sub:"$2.99/lb every day", p:5.99, v:1, c:"pr"},
+      {st:"F", n:"Guerrero Sonora burrito tortillas 8ct (×2)", sub:"burritos + quesadillas + wraps — freeze one pack", p:8.78, v:1, c:"pa"},
     ]},
   ]
 },
@@ -352,7 +358,6 @@ const DATA = [
   ],
   trips:[
     {t:"Monday Shop", items:[
-      {st:"S", n:"Hass avocados (2 medium)", sub:"Fri nachos · $1.25 each (S&F delivery: 50¢!)", p:2.50, v:1, c:"pr"},
       {st:"S", n:"Sprouts romaine hearts 3ct", sub:"Wed sandwiches (audit fix — Thu shop is a day too late)", p:3.29, v:1, c:"pr"},
       {st:"S", n:"Fruit for the week", sub:"", p:5.00, c:"pr"},
       {st:"S", n:"Wan Ja Shan Worcestershire 10oz (vegan)", sub:"Sun gravy · regular Worcestershire has anchovies! (buy-once — Annie's not carried here)", p:5.79, v:1, c:"pa"},
@@ -361,8 +366,6 @@ const DATA = [
       {st:"T", n:"Soft-taco tortillas — Guerrero Riquísimas 10ct", sub:"enchiladas · verified price", p:3.39, v:1, c:"pa"},
       {st:"T", n:"Shredded Mexican blend 16oz — G&G", sub:"enchiladas + quesadillas", p:3.49, v:1, c:"dy"},
       {st:"T", n:"MorningStar Korean BBQ Riblets 10oz", sub:"Tue — the Korean beef swap", p:7.49, v:1, c:"fz"},
-      {st:"T", n:"Rice — jasmine 2lb", sub:"Tue Korean night · S&F: Mahatma 5-lb $5.59 is the bulk play", p:3.99, c:"pa"},
-      {st:"T", n:"Crinkle fries 32oz — Market Pantry", sub:"Wed sandwiches", p:3.29, v:1, c:"fz"},
       {st:"T", n:"Burger buns — Market Pantry 8ct", sub:"covers Wed sandwiches + Thu burgers", p:1.99, c:"bk"},
       {st:"T", n:"Coffee mate creamer 32oz", sub:"", p:3.99, v:1, c:"dy"},
       {st:"V", n:"Gardein Ultimate Spicy Chick'n Filets 15oz", sub:"Wed — your favorite · verified at Mira Mesa Vons (reg $11.99)", p:9.99, v:1, c:"fz"},
@@ -374,10 +377,8 @@ const DATA = [
       {st:"S", n:"Sprouts salsa (fresh case)", sub:"Fri nachos — W1 tub will be gone by now", p:3.99, v:1, c:"pr"},
       {st:"S", n:"Beyond Beef 16oz brick", sub:"smash burgers · Sprouts $9.99 beats Vons $11.99", p:9.99, v:1, c:"fz"},
       {st:"T", n:"Tillamook cheddar slices 8oz", sub:"smash burgers", p:4.19, v:1, c:"dy"},
-      {st:"T", n:"Ore-Ida fries 32oz", sub:"2/$8 deal · S&F: 5-lb bag $4.99 if doing delivery", p:4.39, v:1, c:"fz"},
       {st:"T", n:"Tortilla chips — Santitas", sub:"nachos", p:2.89, v:1, c:"pa"},
       {st:"T", n:"Black beans 15.5oz — G&G", sub:"nachos · 99¢", p:0.99, v:1, c:"pa"},
-      {st:"T", n:"Burrito tortillas — Guerrero", sub:"quesadillas · S&F verified $4.39 (Sonora 8ct)", p:4.39, v:1, c:"pa"},
       {st:"T", n:"Gardein Ground Be'f 13.7oz", sub:"Sun shepherd's pie · on sale", p:4.99, v:1, c:"fz"},
       {st:"T", n:"Frozen mixed vegetables 12oz — G&G", sub:"shepherd's pie · 99¢", p:0.99, v:1, c:"fz"},
       {st:"T", n:"Vegetable broth 32oz — G&G", sub:"shepherd's pie gravy (uses staples: butter, flour, milk, soy)", p:1.49, c:"pa"},
@@ -415,14 +416,12 @@ const DATA = [
       {st:"S", n:"Asparagus (1 lb)", sub:"Mon dinner · ORGANIC on sale $3.98/lb — cheaper than conventional right now", p:3.86, v:1, c:"pr"},
       {st:"S", n:"Apples (4)", sub:"$1.99/lb", p:3.30, v:1, c:"pr"},
       {st:"S", n:"Bartlett pears (4)", sub:"$1.99/lb", p:3.20, v:1, c:"pr"},
-      {st:"S", n:"Strawberries 1 lb", sub:"on sale $3.33 (reg $4) · S&F: $2.99 every day", p:3.33, v:1, c:"pr"},
       {st:"T", n:"Beyond Steak 10oz", sub:"$4.55 SALE (reg $6.69 · Vons wants $9.99)", p:4.55, v:1, c:"fz"},
       {st:"T", n:"Tillamook sharp white cheddar shredded 8oz", sub:"steak night — already grated", p:4.19, v:1, c:"dy"},
       {st:"T", n:"Amy's soup (tortilla or veg)", sub:"Tue · all-vegetarian brand", p:3.89, v:1, c:"pa"},
       {st:"T", n:"Bread — Market Pantry honey wheat", sub:"sandwiches", p:1.89, v:1, c:"pa"},
       {st:"T", n:"Tillamook cheddar slices 8oz", sub:"sandwiches", p:4.19, v:1, c:"dy"},
       {st:"T", n:"MorningStar Chik'n Nuggets", sub:"Wed · or Beyond Nuggets $4.55 on sale", p:4.99, v:1, c:"fz"},
-      {st:"T", n:"Crinkle fries 32oz — Market Pantry", sub:"Wed + Sat", p:3.29, v:1, c:"fz"},
       {st:"T", n:"Coffee mate creamer 32oz", sub:"", p:3.99, v:1, c:"dy"},
     ]},
     {t:"Thursday Shop", items:[
@@ -433,7 +432,6 @@ const DATA = [
       {st:"T", n:"Shredded Mexican blend 16oz — G&G", sub:"", p:3.49, v:1, c:"dy"},
       {st:"T", n:"Mozzarella block 16oz", sub:"mozz sticks — block > shredded for frying", p:3.99, c:"dy"},
       {st:"T", n:"Breadcrumbs — Progresso Italian", sub:"mozz sticks", p:2.79, c:"pa"},
-      {st:"T", n:"Eggs dozen — G&G", sub:"breading", p:1.49, v:1, c:"dy"},
       {st:"T", n:"King's Hawaiian slider buns 9ct", sub:"Fri sliders · verified $4.49 (12ct sweet rolls $4.89)", p:4.49, v:1, c:"bk"},
       {st:"T", n:"Marinara 24oz — G&G", sub:"mozz stick dip · $1.79", p:1.79, v:1, c:"pa"},
       {st:"T", n:"MorningStar Buffalo Chik'n Patties 4ct", sub:"Sat sandwiches · verified · grab pepper jack slices if you want the upgrade", p:4.99, v:1, c:"fz"},
@@ -473,10 +471,8 @@ const DATA = [
       {st:"S", n:"Fruit for the week", sub:"", p:5.00, c:"pr"},
       {st:"T", n:"Annie's Shells & White Cheddar (x2)", sub:"Mon · $1.59 each (Kraft $1.29)", p:3.18, v:1, c:"pa"},
       {st:"T", n:"Tillamook farmstyle shredded sharp cheddar 8oz", sub:"extra cheesy mac", p:4.19, v:1, c:"dy"},
-      {st:"T", n:"Rice — jasmine 2lb", sub:"bowls (skip if stocked)", p:3.99, c:"pa"},
       {st:"T", n:"Black beans 15.5oz — G&G (x2)", sub:"bowls · 99¢ each", p:1.98, v:1, c:"pa"},
       {st:"T", n:"Gardein Ground Be'f 13.7oz", sub:"bowl protein · on sale", p:4.99, v:1, c:"fz"},
-      {st:"T", n:"Burrito tortillas — Guerrero", sub:"optional wraps · S&F verified $4.39", p:4.39, v:1, c:"pa"},
       {st:"T", n:"Vegetable soup — Amy's or G&G", sub:"Wed", p:3.89, v:1, c:"pa"},
       {st:"T", n:"Salsa — Tostitos chunky 15.5oz", sub:"Tue bowls (audit fix — no salsa on W4 lists)", p:4.29, v:1, c:"pa"},
       {st:"T", n:"Shredded Mexican 8oz — G&G", sub:"bowls — W3's 16oz bag will be running out", p:1.99, v:1, c:"dy"},
@@ -489,7 +485,6 @@ const DATA = [
       {st:"S", n:"Impossible Beef Hot Dogs 6pk", sub:"chili dogs · your dogs · verified at Sprouts", p:9.99, v:1, c:"fz"},
       {st:"T", n:"Hot dog buns — Market Pantry 8ct", sub:"verified $1.59", p:1.59, v:1, c:"bk"},
       {st:"T", n:"Amy's Organic Chili (vegetarian)", sub:"canned aisle · medium is the good one", p:4.49, c:"pa"},
-      {st:"T", n:"Ore-Ida fries 32oz", sub:"2/$8 deal · S&F: 5-lb bag $4.99 if doing delivery", p:4.39, v:1, c:"fz"},
       {st:"T", n:"Beyond Steak 10oz", sub:"Fri · stock up if still $4.55", p:4.55, v:1, c:"fz"},
       {st:"T", n:"Tillamook sharp white cheddar shredded 8oz", sub:"Fri", p:4.19, v:1, c:"dy"},
     ]},
@@ -702,7 +697,7 @@ function render(){
         <div class="tripbar"><span>In cart</span><b>${money(done)} / ${money(total)}</b></div>
         <button class="hidebtn ${hideDone?'on':''}" onclick="toggleHide()">${hideDone?'✓ hiding':'hide ✓'}</button>
       </div>`;
-      ["S","T","V"].forEach(st=>{
+      ["S","T","V","F"].forEach(st=>{
         const items = all.map((it,idx)=>({...it,idx})).filter(it=>it.st===st);
         if(!items.length) return;
         const sTotal = items.reduce((s,it)=>s+it.p,0);

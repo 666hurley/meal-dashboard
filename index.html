@@ -238,7 +238,7 @@
 
   <footer>
     Prices verified at the Mira Mesa Sprouts, Target, Vons &amp; Smart &amp; Final; sale prices change weekly.<br>
-    <b>Build: Jul 9, 2026 (v2) — Smart &amp; Final in the Shop tab.</b> If you don't see this line, your phone has an old cached copy — close the app fully and reopen.
+    <b>Build: Jul 9, 2026 (v3) — Beyond moved to Sprouts (Target dropped the line).</b> If you don't see this line, your phone has an old cached copy — close the app fully and reopen.
   </footer>
 </div>
 
@@ -267,7 +267,7 @@ const DATA = [
     {d:"Thu", n:"Tacos", s:"Swap: Gardein Ground Be'f ($4.99 Target) or Beyond Beef ($5.99 Vons)",
       steps:["Preheat the skillet until a water drop skates, swirl in oil, then brown the grounds 5–6 min.","Taco seasoning + a splash of water — it deglazes the browned bits right into the filling. Warm shells at 350°F meanwhile.","Set out Sprouts salsa, lettuce, cheese — build-your-own."],
       tip:"Plant grounds dry out fast — pull them at 6 minutes, no longer."},
-    {d:"Fri", n:"Beyond Steak Bites, Potatoes & Broccoli", s:"Swap: Beyond Steak 10oz — $4.55 on sale at Target (Vons: $9.99!)",
+    {d:"Fri", n:"Beyond Steak Bites, Potatoes & Broccoli", s:"Swap: Beyond Steak seared tips — Sprouts $8.99 (Target dropped Beyond; Vons wants $9.99)",
       steps:["Cubed potatoes in the air fryer: 400°F ~18 min, shake twice. Broccoli joins for the last 8.","Preheat the skillet 2 min, add oil, then the steak — don't move pieces until they release on their own. ~5 min, don't crowd.","Toss steak in garlic butter; grate white cheddar over the potatoes."],
       tip:"Beyond Steak is already cooked — you're just browning it. Overcooking = rubber."},
     {d:"Sat", n:"Pizza Night", s:"Check toppings are meat-free (cheese / margherita / veggie)",
@@ -307,7 +307,7 @@ const DATA = [
       {st:"T", n:"Taco shells — Old El Paso", sub:"", p:1.99, c:"pa"},
       {st:"T", n:"Taco seasoning — Old El Paso (3 packets)", sub:"tacos + W4 bowls · 99¢ each (audit fix — never on the list!)", p:2.97, v:1, c:"pa"},
       {st:"T", n:"Shredded Mexican blend 16oz — G&G", sub:"tacos + burritos", p:3.49, v:1, c:"dy"},
-      {st:"T", n:"Beyond Steak 10oz", sub:"Fri · $4.55 SALE (reg $6.69 · Vons $9.99)", p:4.55, v:1, c:"fz"},
+      {st:"S", n:"Beyond Steak seared tips 10oz", sub:"Fri · Target dropped Beyond entirely — Sprouts $8.99 verified (Vons $9.99)", p:8.99, v:1, c:"fz"},
       {st:"T", n:"Tillamook sharp white cheddar shredded 8oz", sub:"Fri steak night — already grated", p:4.19, v:1, c:"dy"},
       {st:"T", n:"Frozen cheese pizza — Red Baron 4-cheese", sub:"Sat · or G&G margherita $6.99", p:4.99, v:1, c:"fz"},
       {st:"T", n:"Refried beans 16oz — G&G (vegetarian)", sub:"Sun burritos · 99¢!", p:0.99, v:1, c:"pa"},
@@ -389,13 +389,13 @@ const DATA = [
 },
 { // ---------------- WEEK 3 ----------------
   meals:[
-    {d:"Mon", n:"Beyond Steak & Asparagus", s:"Swap: Beyond Steak 10oz — $4.55 sale at Target",
+    {d:"Mon", n:"Beyond Steak & Asparagus", s:"Swap: Beyond Steak seared tips — Sprouts $8.99",
       steps:["Preheat, oil, then sear Beyond Steak ~5 min; set aside.","Asparagus in the same pan 4 min with garlic + butter — it lifts the browned steak bits off the stainless (free flavor).","Grate white cheddar over the top to finish."],
       tip:"Snap asparagus where it wants to break — the woody end does it for you."},
     {d:"Tue", n:"Soup & Grilled Sandwiches", s:"Amy's soups are all vegetarian — tortilla soup $3.89 verified",
       steps:["Heat soup gently; don't boil creamy ones.","Grilled cheese: butter generously; center griddle on medium-low does the whole batch at once."],
       tip:"Amy's is an entirely vegetarian brand — anything from their shelf is safe."},
-    {d:"Wed", n:"Chik'n Nuggets & Fries", s:"Swap: MorningStar Nuggets $4.99 or Beyond Nuggets $4.55 (sale)",
+    {d:"Wed", n:"Chik'n Nuggets & Fries", s:"Swap: MorningStar Chik'n Nuggets — $4.99 Target",
       steps:["Air fryer 400°F: nuggets 8–10 min, shake once.","Fries as the second basket while the nuggets rest (they hold heat fine).","Sauce lineup: ranch, BBQ, buffalo."],
       tip:"Nuggets are the single biggest air-fryer win in this plan — oven can't touch it."},
     {d:"Thu", n:"Soyrizo Tacos", s:"El Burrito Organic Soyrizo — Sprouts carries it",
@@ -416,12 +416,12 @@ const DATA = [
       {st:"S", n:"Asparagus (1 lb)", sub:"Mon dinner · ORGANIC on sale $3.98/lb — cheaper than conventional right now", p:3.86, v:1, c:"pr"},
       {st:"S", n:"Apples (4)", sub:"$1.99/lb", p:3.30, v:1, c:"pr"},
       {st:"S", n:"Bartlett pears (4)", sub:"$1.99/lb", p:3.20, v:1, c:"pr"},
-      {st:"T", n:"Beyond Steak 10oz", sub:"$4.55 SALE (reg $6.69 · Vons wants $9.99)", p:4.55, v:1, c:"fz"},
+      {st:"S", n:"Beyond Steak seared tips 10oz", sub:"Mon dinner · Sprouts $8.99 (Target no longer carries Beyond)", p:8.99, v:1, c:"fz"},
       {st:"T", n:"Tillamook sharp white cheddar shredded 8oz", sub:"steak night — already grated", p:4.19, v:1, c:"dy"},
       {st:"T", n:"Amy's soup (tortilla or veg)", sub:"Tue · all-vegetarian brand", p:3.89, v:1, c:"pa"},
       {st:"T", n:"Bread — Market Pantry honey wheat", sub:"sandwiches", p:1.89, v:1, c:"pa"},
       {st:"T", n:"Tillamook cheddar slices 8oz", sub:"sandwiches", p:4.19, v:1, c:"dy"},
-      {st:"T", n:"MorningStar Chik'n Nuggets", sub:"Wed · or Beyond Nuggets $4.55 on sale", p:4.99, v:1, c:"fz"},
+      {st:"T", n:"MorningStar Chik'n Nuggets", sub:"Wed", p:4.99, v:1, c:"fz"},
       {st:"T", n:"Coffee mate creamer 32oz", sub:"", p:3.99, v:1, c:"dy"},
     ]},
     {t:"Thursday Shop", items:[
@@ -455,9 +455,9 @@ const DATA = [
     {d:"Thu", n:"Veggie Chili Dogs", s:"Swap: Impossible Beef Hot Dogs — your dogs + Amy's vegetarian chili",
       steps:["Simmer Amy's chili while the dogs cook.","Impossible dogs: air fryer 400°F 5–6 min, or blistered right on the griddle.","Dog → chili → Tillamook shredded → diced onion if you're brave."],
       tip:"Never boil them — sear or air-fry for the snap. The 6-pack matches your 8-pack of buns close enough."},
-    {d:"Fri", n:"Beyond Steak & Asparagus", s:"Swap: Beyond Steak — grab 2 when it's on sale",
+    {d:"Fri", n:"Beyond Steak & Asparagus", s:"Swap: Beyond Steak seared tips — grab 2 at Sprouts when they run a sale",
       steps:["Preheat, oil, then sear the steak ~5 min; rest on a plate.","Asparagus in the same pan with garlic butter, 4 min — deglazes the good stuff.","White cheddar over everything."],
-      tip:"If Target still has the $4.55 sale, this dinner costs about $11 total."},
+      tip:"Sprouts also stocks Korean BBQ and Chimichurri seared tips at the same $8.99 — easy variety."},
     {d:"Sat", n:"Family Choice", s:"",
       steps:["Pantry backup #1: quesadillas (tortillas + cheese always on hand).","Pantry backup #2: breakfast-for-dinner — eggs, toast, fruit."],
       tip:"Check the Swap Bank in the Tips tab for fresh ideas."},
@@ -485,7 +485,7 @@ const DATA = [
       {st:"S", n:"Impossible Beef Hot Dogs 6pk", sub:"chili dogs · your dogs · verified at Sprouts", p:9.99, v:1, c:"fz"},
       {st:"T", n:"Hot dog buns — Market Pantry 8ct", sub:"verified $1.59", p:1.59, v:1, c:"bk"},
       {st:"T", n:"Amy's Organic Chili (vegetarian)", sub:"canned aisle · medium is the good one", p:4.49, c:"pa"},
-      {st:"T", n:"Beyond Steak 10oz", sub:"Fri · stock up if still $4.55", p:4.55, v:1, c:"fz"},
+      {st:"S", n:"Beyond Steak seared tips 10oz", sub:"Fri · Sprouts $8.99", p:8.99, v:1, c:"fz"},
       {st:"T", n:"Tillamook sharp white cheddar shredded 8oz", sub:"Fri", p:4.19, v:1, c:"dy"},
     ]},
   ]
@@ -494,10 +494,9 @@ const DATA = [
 const TIPS = [
  {icon:"🏪", h:"Store Playbook", lead:"Who wins what, based on actual July 2026 price checks.", tips:[
   {h:"Buy ALL meat substitutes at Target",
-   p:"Every frozen substitute I price-checked was cheaper at Target than Vons — often dramatically. The original list had you buying these at Vons; that was the expensive move.",
+   p:"MorningStar and Gardein basics are cheapest at Target. UPDATE (Jul 9): Target quietly dropped the entire Beyond Meat line — all Beyond products now come from Sprouts.",
    table:[
-     ["Beyond Steak 10oz","$4.55 sale / $6.69 reg","$9.99","Target −54%"],
-     ["Beyond Nuggets 10oz","$4.55 sale","—","Target"],
+     ["Beyond Steak 10oz","no longer carried","$9.99","Sprouts $8.99"],
      ["MorningStar Chik'n Patties","$4.99","~$6.49","Target"],
      ["Gardein Ground Be'f","$4.99 sale","~$6.29","Target"],
      ["Gardein Ult. Spicy Filets","not stocked","~$8.99","Vons ✓"],
@@ -512,7 +511,7 @@ const TIPS = [
   {h:"What Vons is still good for",
    p:"Two things, verified in-store: fresh bakery garlic-butter French bread ($3.99) and Gardein Ultimate SPICY Chick'n Filets ($9.99 — nobody else in town stocks the spicy ones). Plus for-U app digital deals; load coupons BEFORE you shop, the member-price gaps are real (DiGiorno had a $3.77 coupon sitting there)."},
   {h:"Sale patterns worth timing",
-   p:"Ore-Ida runs 2/$8 at Target basically always — buy two. Beyond products cycle ~30% on/off sale; at $4.55, buy for both steak nights of the month (they keep frozen for months). Jack's pizzas go 3/$10. Target Circle (free) auto-applies most of these."},
+   p:"Beyond products cycle ~30% on/off sale — now that they're Sprouts-only, watch the Sprouts weekly ad and buy for both steak nights when tips drop under $7 (they keep frozen for months). Jack's pizzas go 3/$10 at Target; Target Circle (free) auto-applies most deals."},
  ]},
  {icon:"🍳", h:"Cooking the Subs Right", lead:"The difference between 'weird fake meat' and 'wait, this is good' is almost always technique.", tips:[
   {h:"Stainless 101 (your MultiClad Pro)",
@@ -576,7 +575,7 @@ const TIPS = [
   {h:"Apps before you leave the house",
    p:"Target Circle (auto-coupons), Vons for U (load digital deals — the member price is often 30-40% off shelf), Sprouts app (produce coupons + a free item most weeks)."},
   {h:"The freezer is your price lock",
-   p:"Every sub in this plan freezes for months. When Beyond Steak hits $4.55 or MorningStar drops under $5, buy 2-3. Your 4-week protein cost becomes whatever the best sale was."},
+   p:"Every sub in this plan freezes for months. When Sprouts runs Beyond on sale or MorningStar drops under $5 at Target, buy 2-3. Your 4-week protein cost becomes whatever the best sale was."},
   {h:"Store brands are the same food",
    p:"G&G refried beans (99¢ vs $1.89), G&G marinara ($1.79 vs $6.99 Rao's), Market Pantry fries ($3.29 vs $4.39). Cheese, beans, and pasta are where store brands are indistinguishable."},
   {h:"Estimated month at a glance",
